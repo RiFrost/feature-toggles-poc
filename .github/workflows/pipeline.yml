@@ -3,7 +3,7 @@ name: Pipeline
 on: [push]
 
 jobs:
-  build-backend:
+  backend-build:
     name: Backend Build
     runs-on: ubuntu-latest
     steps:
@@ -19,10 +19,10 @@ jobs:
       - name: Build Backend
         working-directory: ./backend
         run: ./gradlew clean build --stacktrace
-  test-backend:
+  backend-test:
     name: Test Backend
     runs-on: ubuntu-latest
-    needs: [build-backend]
+    needs: [backend-build]
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
