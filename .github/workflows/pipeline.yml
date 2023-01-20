@@ -14,9 +14,10 @@ jobs:
           java-version: "17"
           distribution: "temurin"
       - name: Change wrapper permissions
-        working-directory: ./
+        working-directory: ./backend
         run: chmod +x ./gradlew
       - name: Clean Build
+        working-directory: ./backend
         run: ./gradlew clean build --stacktrace
   frontend-build:
     name: Frontend Build
@@ -30,4 +31,4 @@ jobs:
         run: npm --prefix ./frontend/ install
       - name: Build
         working-directory: ./frontend
-        run: npm run test:unit
+        run: npm run build
