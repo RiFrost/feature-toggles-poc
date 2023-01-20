@@ -1,0 +1,3 @@
+#!/bin/bash
+tmuxinator start -p ./tmuxinator_default.yml
+

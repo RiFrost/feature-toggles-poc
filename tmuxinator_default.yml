@@ -1,0 +1,24 @@
+name: feature-toggles-poc
+root: .
+
+tmux_options: -f tooling/tmux.conf
+
+windows:
+  - main:
+      layout: tiled
+      panes:
+        - frontend:
+            - printf '\033]2;%s\033\\' 'frontend'
+            - cd frontend/ && npm run dev
+        - backend build:
+            - printf '\033]2;%s\033\\' 'backend build'
+            - ./backend/gradlew -p backend build -x test --continuous
+        - backend:
+            - printf '\033]2;%s\033\\' 'backend'
+            - ./backend/gradlew -p backend bootRun
+  - Commander:
+      layout: tiled
+      panes:
+        - commander:
+            - printf '\033]2;%s\033\\' 'commander'
+            - ./tooling/command.sh
