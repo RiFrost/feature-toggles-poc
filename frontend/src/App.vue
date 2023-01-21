@@ -1,13 +1,19 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-</script>
-
 <template>
   <header>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
+      <Navbar />
     </nav>
   </header>
 
   <RouterView />
 </template>
+
+<script setup>
+import { RouterView } from "vue-router";
+import Navbar from "./components/Navbar.vue";
+import { useTogglesStore } from "@/stores/toggles";
+
+var toggleStore = useTogglesStore();
+
+toggleStore.getBackendToggles();
+</script>
