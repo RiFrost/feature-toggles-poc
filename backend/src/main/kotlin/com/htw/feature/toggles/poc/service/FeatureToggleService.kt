@@ -21,11 +21,11 @@ class FeatureToggleService(
 
     fun updateToggle(toggle: FeatureToggle) {
         println(toggle)
-        var toggle = featureToggleRepository.findByName(toggle.name)
-        if(toggle != null) {
-            toggle.enabled = !toggle.enabled
-            featureToggles[toggle.name] = toggle
-            featureToggleRepository.save(toggle)
+        var dbToggle = featureToggleRepository.findByName(toggle.name)
+        if(dbToggle != null) {
+            dbToggle.enabled = !dbToggle.enabled
+            featureToggles[dbToggle.name] = dbToggle
+            featureToggleRepository.save(dbToggle)
         }
     }
 
