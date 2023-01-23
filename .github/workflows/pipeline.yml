@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: fontend-build
-          path: dist
+          path: ${{ github.workspace }}/frontend/dist
   frontend-test:
     name: Frontend Test
     runs-on: ubuntu-latest
