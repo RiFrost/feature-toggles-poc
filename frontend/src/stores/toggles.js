@@ -18,6 +18,10 @@ export const useTogglesStore = defineStore("toggles", {
         })
         .catch((error) => console.log(error));
     },
-    async updateToggles() {},
+    async updateToggle(toggle) {
+      await axios
+        .post(`${backendUrl}/updateToggle`, toggle)
+        .catch((error) => console.log(error));
+    },
   },
 });
