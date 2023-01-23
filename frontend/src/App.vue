@@ -12,8 +12,10 @@
 import { RouterView } from "vue-router";
 import Navbar from "./components/Navbar.vue";
 import { useTogglesStore } from "@/stores/toggles";
+import { onBeforeMount } from "vue";
 
-var toggleStore = useTogglesStore();
-
-toggleStore.getBackendToggles();
+onBeforeMount(async () => {
+  var toggleStore = useTogglesStore();
+  await toggleStore.getBackendToggles();
+});
 </script>

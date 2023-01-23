@@ -10,10 +10,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import { useTogglesStore } from "@/stores/toggles";
 
 var toggleStore = useTogglesStore();
-
-var toggles = ref(toggleStore.getToggles);
+var toggles = computed(() => toggleStore.getToggles);
 </script>

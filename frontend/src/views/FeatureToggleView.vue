@@ -22,13 +22,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import { Switch } from "@headlessui/vue";
 import { useTogglesStore } from "@/stores/toggles";
 
 var toggleStore = useTogglesStore();
 
-var toggles = ref(toggleStore.getToggles);
+var toggles = computed(() => toggleStore.getToggles);
 
 function print() {
   console.log(toggles.value);
