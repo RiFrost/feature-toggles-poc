@@ -11,6 +11,7 @@ export const useTogglesStore = defineStore("toggles", {
   },
   actions: {
     async getBackendToggles() {
+      console.log(`BACKEND URL: ${backendUrl}/test`);
       await axios
         .get(`${backendUrl}/test`)
         .then((res) => {

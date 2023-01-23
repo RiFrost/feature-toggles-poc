@@ -3,6 +3,7 @@
 tmp
 bin
 backend/build
+.env
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
