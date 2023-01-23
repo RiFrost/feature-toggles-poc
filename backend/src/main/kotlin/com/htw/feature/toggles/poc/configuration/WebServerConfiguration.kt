@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @Configuration
 class WebServerConfiguration {
 
-    private val corsOriginPatterns: String = "http://localhost:8080/,http://localhost:5173/,https://rifrost.github.io/feature-toggles-poc/"
+    private val corsOriginPatterns: String = "http://localhost:8080/,http://localhost:5173/,https://rifrost.github.io/"
 
     @Bean
     fun addCorsConfig(): WebMvcConfigurer {
