@@ -80,7 +80,7 @@ jobs:
       - name: Deploy Frontend
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: frontend/dist
   deploy-prod:
     name: Deploy Production
     runs-on: ubuntu-latest
