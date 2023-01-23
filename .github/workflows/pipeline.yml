@@ -25,11 +25,11 @@ jobs:
       - name: Build Backend
         working-directory: ./backend
         run: ./gradlew clean build --stacktrace
-      - name: Upload build folder as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: backend-build
-          path: ${{ github.workspace }}/backend/build
+      # - name: Upload build folder as artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: backend-build
+      #     path: ${{ github.workspace }}/backend/build
   backend-test:
     name: Test Backend
     runs-on: ubuntu-latest
@@ -95,11 +95,11 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: frontend/dist
-      - name: Download backend-build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: backend-build
-          path: backend/build
+      # - name: Download backend-build artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: backend-build
+      #     path: backend/build
       - name: Deploy Backend
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
