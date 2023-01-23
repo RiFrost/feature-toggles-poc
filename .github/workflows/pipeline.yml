@@ -52,7 +52,7 @@ jobs:
       - name: Upload build folder as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: fontend-build
+          name: frontend-build
           path: ${{ github.workspace }}/frontend/dist
   frontend-test:
     name: Frontend Test
@@ -73,12 +73,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [frontend-test, backend-test]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Download frontend-build artifact
+        uses: actions/download-artifact@v3
         with:
-          node-version: latest
-      - name: PLACEHOLDER DEV
-        run: echo PLACEHOLDER DEV
+          name: frontend-build
+      - name: Deploy Frontend
+        uses: JamesIves/github-pages-deploy-action@4.4.1
+        with:
+          folder: dist
   deploy-prod:
     name: Deploy Production
     runs-on: ubuntu-latest
