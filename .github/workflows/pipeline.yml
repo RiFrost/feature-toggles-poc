@@ -61,7 +61,7 @@ jobs:
         working-directory: ./frontend
         run: npm run build
         env:
-          VITE_BACKEND_API: ${{ secrets.VITE_BACKEND_API }}
+          VITE_BACKEND_API: ${{ vars.VITE_BACKEND_API }}
       - name: Upload build folder as artifact
         uses: actions/upload-artifact@v3
         with:
