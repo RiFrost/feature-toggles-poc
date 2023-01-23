@@ -37,6 +37,10 @@ class FeatureToggleService(
         featureToggles[name]?.enabled = false
     }
 
+    fun enableFeatureToggle(name: String) {
+        featureToggles[name]?.enabled = true
+    }
+
     fun getFeatureToggles(): MutableMap<String, FeatureToggle> {
         if(featureToggles.isEmpty()) {
             for(toggle in featureToggleRepository.findAll()) {
