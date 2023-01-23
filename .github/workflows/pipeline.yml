@@ -51,9 +51,10 @@ jobs:
         run: npm run build
       - name: Upload build folder as artifact
         uses: actions/upload-artifact@v3
+        working-directory: ./frontend
         with:
           name: fontend-build
-          path: frontent/dist
+          path: dist
   frontend-test:
     name: Frontend Test
     runs-on: ubuntu-latest

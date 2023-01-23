@@ -2,6 +2,7 @@
 .vscode
 tmp
 bin
+backend/build
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
