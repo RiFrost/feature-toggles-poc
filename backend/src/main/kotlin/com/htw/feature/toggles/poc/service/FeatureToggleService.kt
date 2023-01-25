@@ -1,27 +1,46 @@
 package com.htw.feature.toggles.poc.service
 
+import com.htw.feature.toggles.poc.configuration.FeatureToggleConfiguration
 import com.htw.feature.toggles.poc.model.FeatureToggle
 import com.htw.feature.toggles.poc.repository.FeatureToggleRepository
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
 
 @Service
 class FeatureToggleService(
-    private val featureToggleRepository: FeatureToggleRepository
-) {
+    private val featureToggleRepository: FeatureToggleRepository,
+    private val featureToggleConfiguration: FeatureToggleConfiguration,
+)  {
 
     // get From DB and safe to DB on any of the function calls
     private val featureToggles = mutableMapOf<String, FeatureToggle>()
 
-    fun addFeatureToggle(toggle: FeatureToggle) {
-        if(featureToggleRepository.findByName(toggle.name) == null) {
-            featureToggles[toggle.name] = toggle
-            featureToggleRepository.save(toggle)
+    @EventListener(ApplicationReadyEvent::class)
+    fun initToggles() {
+        var toggles = cleanUpDB()
+        toggles.forEach {
+            featureToggles[it.name] = it
         }
+        featureToggleConfiguration.getToggles().filter { !toggles.map { t -> t.name }.contains(it) }.forEach { toggle ->
+            var featureToggle = FeatureToggle(name = toggle)
+            featureToggles[toggle] = featureToggle
+            featureToggleRepository.save(featureToggle)
+        }
+        println("FeatureToggles initialized!")
+    }
+
+    private fun cleanUpDB(): MutableList<FeatureToggle> {
+        var dbToggles = featureToggleRepository.getAllByOrderById()
+        var removeToggles = dbToggles.filter { !featureToggleConfiguration.getToggles().contains(it.name) }.toList()
+        featureToggleRepository.deleteAll(removeToggles)
+        println("Unused Toggles have been removed from DB!")
+
+        return dbToggles.filter { !removeToggles.contains(it) }.toMutableList()
     }
 
     fun updateToggle(toggle: FeatureToggle) {
-        println(toggle)
-        var dbToggle = featureToggleRepository.findByName(toggle.name)
+        var dbToggle = featureToggleRepository.getByName(toggle.name)
         if(dbToggle != null) {
             dbToggle.enabled = !dbToggle.enabled
             featureToggles[dbToggle.name] = dbToggle
@@ -41,14 +60,6 @@ class FeatureToggleService(
         featureToggles[name]?.enabled = true
     }
 
-    fun getFeatureToggles(): MutableMap<String, FeatureToggle> {
-        if(featureToggles.isEmpty()) {
-            for(toggle in featureToggleRepository.findAll()) {
-                featureToggles[toggle.name] = toggle
-            }
-        }
-
-        return featureToggles
-    }
+    fun getFeatureToggles(): MutableMap<String, FeatureToggle> = featureToggles
 
 }

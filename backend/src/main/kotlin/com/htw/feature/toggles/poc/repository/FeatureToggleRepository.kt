@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface FeatureToggleRepository : JpaRepository<FeatureToggle, Long> {
 
-    override fun findAll(): MutableList<FeatureToggle>
+    fun getAllByOrderById(): MutableList<FeatureToggle>
 
-    fun findByName(name: String): FeatureToggle?
+    fun getByName(name: String): FeatureToggle?
 
 }
