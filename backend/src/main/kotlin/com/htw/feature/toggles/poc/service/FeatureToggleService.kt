@@ -3,6 +3,7 @@ package com.htw.feature.toggles.poc.service
 import com.htw.feature.toggles.poc.configuration.FeatureToggleConfiguration
 import com.htw.feature.toggles.poc.model.FeatureToggle
 import com.htw.feature.toggles.poc.repository.FeatureToggleRepository
+import mu.KLogging
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
@@ -12,6 +13,8 @@ class FeatureToggleService(
     private val featureToggleRepository: FeatureToggleRepository,
     private val featureToggleConfiguration: FeatureToggleConfiguration,
 )  {
+
+    companion object : KLogging()
 
     // get From DB and safe to DB on any of the function calls
     private val featureToggles = mutableMapOf<String, FeatureToggle>()
@@ -27,14 +30,14 @@ class FeatureToggleService(
             featureToggles[toggle] = featureToggle
             featureToggleRepository.save(featureToggle)
         }
-        println("FeatureToggles initialized!")
+        logger.info{ "FeatureToggles initialized!" }
     }
 
     private fun cleanUpDB(): MutableList<FeatureToggle> {
         var dbToggles = featureToggleRepository.getAllByOrderById()
         var removeToggles = dbToggles.filter { !featureToggleConfiguration.getToggles().contains(it.name) }.toList()
         featureToggleRepository.deleteAll(removeToggles)
-        println("Unused Toggles have been removed from DB!")
+        logger.info { "Unused Toggles have been removed from DB!" }
 
         return dbToggles.filter { !removeToggles.contains(it) }.toMutableList()
     }

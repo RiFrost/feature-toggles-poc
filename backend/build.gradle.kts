@@ -1,4 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
+tasks {
+	test {
+		testLogging {
+			events.addAll(setOf(
+				TestLogEvent.PASSED,
+				TestLogEvent.SKIPPED,
+				TestLogEvent.FAILED,
+				TestLogEvent.STANDARD_ERROR
+			))
+			setExceptionFormat("full")
+		}
+	}
+}
 
 plugins {
 	id("org.springframework.boot") version "3.0.1"
@@ -23,9 +38,10 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//	implementation("io.klogging:klogging-spring-boot-starter:0.3.0")
+	implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.13.4")
 }
 
 tasks.withType<KotlinCompile> {

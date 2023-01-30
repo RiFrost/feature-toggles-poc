@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:8080", "http://localhost:5173"])
 @RequestMapping("/api")
 class FeatureToggleController(
     private val featureToggleService: FeatureToggleService

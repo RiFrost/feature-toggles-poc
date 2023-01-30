@@ -4,7 +4,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_API;
 
 export const useTogglesStore = defineStore("toggles", {
   state: () => ({
-    toggles: null,
+    toggles: {},
   }),
   getters: {
     getToggles: (state) => state.toggles,

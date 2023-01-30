@@ -2,7 +2,7 @@ package com.htw.feature.toggles.poc.configuration
 
 import org.springframework.stereotype.Component
 
-private enum class ToggleEnum {
+enum class FeatureToggleEnum {
     TOGGLE_1,
     TOGGLE_2,
     TOGGLE_3
@@ -10,5 +10,5 @@ private enum class ToggleEnum {
 
 @Component
 class FeatureToggleConfiguration {
-    fun getToggles(): List<String> = ToggleEnum.values().map { it.name }
+    fun getToggles(): List<String> = FeatureToggleEnum.values().map { it.name }
 }
