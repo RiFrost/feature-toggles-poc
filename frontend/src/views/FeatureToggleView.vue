@@ -20,7 +20,7 @@
       <h2>{{ toggle.name }}</h2>
     </div>
 
-    <button @click="print()">Print Toggles</button>
+    <!-- <button @click="print()">Print Toggles</button> -->
   </div>
 
   <div class="flex justify-center">
@@ -34,7 +34,7 @@
       v-show="toggles.SHOW_UI_BUTTON?.enabled"
       class="toggle2-button mt-10 ml-3 flex w-1/4 items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
-      Only shows when Toggle 2 is on
+      Only shows when SHOW_UI_BUTTON is on
     </button>
   </div>
   <main>
