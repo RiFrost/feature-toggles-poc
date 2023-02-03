@@ -1,6 +1,7 @@
 package com.htw.feature.toggles.poc.service
 
 import com.htw.feature.toggles.poc.configuration.FeatureToggleConfiguration
+import com.htw.feature.toggles.poc.configuration.FeatureToggleEnum
 import com.htw.feature.toggles.poc.model.FeatureToggle
 import com.htw.feature.toggles.poc.repository.FeatureToggleRepository
 import mu.KLogging
@@ -51,16 +52,18 @@ class FeatureToggleService(
         }
     }
 
-    fun isFeatureEnabled(name: String): Boolean {
-        return featureToggles[name]?.enabled ?: false
+    fun isFeatureEnabled(feature: FeatureToggleEnum): Boolean {
+        return featureToggles[feature.name]?.enabled ?: false
     }
 
-    fun disableFeatureToggle(name: String) {
-        featureToggles[name]?.enabled = false
+    fun disableFeatureToggle(feature: FeatureToggleEnum) {
+        featureToggles[feature.name]?.enabled = false
+        featureToggleRepository.save(featureToggles[feature.name]!!)
     }
 
-    fun enableFeatureToggle(name: String) {
-        featureToggles[name]?.enabled = true
+    fun enableFeatureToggle(feature: FeatureToggleEnum) {
+        featureToggles[feature.name]?.enabled = true
+        featureToggleRepository.save(featureToggles[feature.name]!!)
     }
 
     fun getFeatureToggles(): MutableMap<String, FeatureToggle> = featureToggles

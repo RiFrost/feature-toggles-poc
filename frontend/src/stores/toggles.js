@@ -11,9 +11,9 @@ export const useTogglesStore = defineStore("toggles", {
   },
   actions: {
     async getBackendToggles() {
-      console.log(`BACKEND URL: ${backendUrl}/test`);
+      console.log(`BACKEND URL: ${backendUrl}/getFeatureToggles`);
       await axios
-        .get(`${backendUrl}/test`)
+        .get(`${backendUrl}/getFeatureToggles`)
         .then((res) => {
           this.toggles = res.data;
         })

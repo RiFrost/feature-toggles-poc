@@ -2,10 +2,13 @@ package com.htw.feature.toggles.poc.configuration
 
 import org.springframework.stereotype.Component
 
-enum class FeatureToggleEnum {
-    TOGGLE_1,
-    TOGGLE_2,
-    TOGGLE_3
+enum class FeatureToggleEnum(
+    val title: String,
+    val description: String
+) {
+    USE_NEW_RETURN_MESSAGE("backend.returnMessage", "Returns new Message String"),
+    SHOW_UI_BUTTON("frontend.uiButton", "Shows the new Button in the UI"),
+    SAMPLE_TOGGLE("test.sampleToggle", "Ein weiterer Beispiel Toggle")
 }
 
 @Component

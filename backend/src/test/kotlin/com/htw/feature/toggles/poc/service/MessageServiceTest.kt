@@ -13,15 +13,15 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MessageServiceTest {
 
     @MockK
-    private lateinit var featureToggleService: FeatureToggleService
+    private lateinit var featureDecisionService: FeatureDecisionService
 
     @InjectMockKs
     private lateinit var messageService: MessageService
 
     @Test
     fun `should return the default message when feature toggle is off`() {
-        val expected = "A sample return message because ${TOGGLE_1.name} was toggled off."
-        every { featureToggleService.isFeatureEnabled(TOGGLE_1.name) } returns false
+        val expected = "A sample return message because the toggle was off."
+        every { featureDecisionService.useNewReturnMessage() } returns false
 
         val actual = messageService.createSampleMessage()
 
@@ -30,8 +30,8 @@ class MessageServiceTest {
 
     @Test
     fun `should not return the default message when feature toggle is on`() {
-        val expected = "A different return message from the service because ${TOGGLE_1.name} was toggled on."
-        every { featureToggleService.isFeatureEnabled(TOGGLE_1.name) } returns true
+        val expected = "A different return message from the service because the toggle was on."
+        every { featureDecisionService.useNewReturnMessage() } returns true
 
         val actual = messageService.createSampleMessage()
 

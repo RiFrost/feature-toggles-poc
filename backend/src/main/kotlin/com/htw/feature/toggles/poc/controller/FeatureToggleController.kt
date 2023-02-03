@@ -16,8 +16,8 @@ class FeatureToggleController(
     private val featureToggleService: FeatureToggleService
 ) {
 
-    @GetMapping("/test")
-    fun testEndpoint(): ResponseEntity<Map<String, FeatureToggle>> {
+    @GetMapping("/getFeatureToggles")
+    fun getFeatureToggles(): ResponseEntity<Map<String, FeatureToggle>> {
         return ResponseEntity.ok(featureToggleService.getFeatureToggles())
     }
 

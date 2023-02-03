@@ -5,15 +5,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessageService(
-    private val featureToggleService: FeatureToggleService
+    private val featureDecisionService: FeatureDecisionService
 ) {
 
     fun createSampleMessage(): String {
-        if(featureToggleService.isFeatureEnabled(TOGGLE_1.name)) {
-            return "A different return message from the service because ${TOGGLE_1.name} was toggled on."
+        if(featureDecisionService.useNewReturnMessage()) {
+            return "A different return message from the service because the toggle was on."
         }
 
-        return "A sample return message because ${TOGGLE_1.name} was toggled off."
+        return "A sample return message because the toggle was off."
     }
 
 }

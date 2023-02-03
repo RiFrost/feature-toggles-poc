@@ -31,7 +31,7 @@
       Get Message
     </button>
     <button
-      v-show="toggles.TOGGLE_2?.enabled"
+      v-show="toggles.SHOW_UI_BUTTON?.enabled"
       class="toggle2-button mt-10 ml-3 flex w-1/4 items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
       Only shows when Toggle 2 is on
@@ -64,7 +64,6 @@ var toggleStore = useTogglesStore();
 var response = ref("");
 
 var toggles = computed(() => toggleStore.getToggles);
-var isToggled = computed(() => toggleStore.is);
 
 function print() {
   console.log(toggles.value);
