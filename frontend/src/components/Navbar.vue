@@ -40,6 +40,15 @@
               >
                 {{ item.name }}</RouterLink
               >
+              <RouterLink
+                v-show="toggles?.SAMPLE_TOGGLE?.enabled && toggles?.DEV_TOGGLE?.enabled"
+                :to="'/dev'"
+                :class="[
+                  'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  'px-3 py-2 rounded-md text-sm font-medium',
+                ]"
+              >
+                Dev</RouterLink>
             </div>
           </div>
         </div>
@@ -59,6 +68,17 @@
           ]"
           >{{ item.name }}</DisclosureButton
         >
+        <DisclosureButton
+          v-show="toggles?.SAMPLE_TOGGLE?.enabled && toggles?.DEV_TOGGLE?.enabled"
+          as="a"
+          @click="router.push('/dev')"
+          :class="[
+            'text-gray-300 hover:bg-gray-700 hover:text-white',
+            'block px-3 py-2 rounded-md text-base font-medium',
+          ]"
+        >
+            Dev
+        </DisclosureButton>
       </div>
     </DisclosurePanel>
   </Disclosure>
@@ -68,11 +88,16 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { RouterLink, useRouter } from "vue-router";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
+import {useTogglesStore} from "@/stores/toggles";
+import {computed, ref} from "vue";
 
-const navigation = [
+var toggleStore = useTogglesStore();
+var toggles = computed(() => toggleStore.getToggles);
+
+const navigation = ref([
   { name: "Home", href: "/" },
   { name: "Feature Toggles", href: "/feature-toggles" },
-];
+]);
 
 const router = useRouter();
 </script>
